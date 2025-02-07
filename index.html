@@ -38,20 +38,21 @@
     }
   </style>
   <script>
-    function sendScript() {
-        var scriptText = document.getElementById("scriptCode").innerText;
-
-       
+   <script>
+    function sendHawkTuah() {
         if (window.chrome && window.chrome.webview && window.scriptReceiver) {
-            window.scriptReceiver.ReceiveScript(scriptText);
+            window.scriptReceiver.ReceiveScript("hawk tuah");
         } else {
-            console.error("CefSharp binding not found. Make sure C# has registered scriptReceiver.");
+            console.error("CefSharp binding not found. Ensure C# has registered scriptReceiver.");
         }
     }
 </script>
 
+</script>
+
 </head>
 <body>
+  <button class="btn" onclick="sendHawkTuah()">Insert 'hawk tuah' into Monaco</button>
   <h1>Script Hub</h1>
   <p>Click the button to import the following script into the Monaco editor.</p>
   
