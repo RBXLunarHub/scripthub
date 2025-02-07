@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neon Purple Website</title>
+  <style>
+    /* Base styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      color: #9D00FF;
+      text-shadow: 0 0 10px #9D00FF;
+    }
+    
+    /* Container for the three areas */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 40px;
+    }
+    
+    /* Each box (area) styling */
+    .box {
+      background-color: rgba(157, 0, 255, 0.1);
+      border: 2px solid #9D00FF;
+      border-radius: 10px;
+      width: 300px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 15px #9D00FF;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #9D00FF;
+    }
+    
+    .box h2 {
+      color: #9D00FF;
+      margin-bottom: 10px;
+    }
+    
+    .box p {
+      line-height: 1.5;
+    }
+    
+    /* Button styling */
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 25px;
+      font-size: 1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+      background-color: #9D00FF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #9D00FF;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .btn:hover {
+      background-color: #bf40ff;
+      box-shadow: 0 0 20px #bf40ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Neon Purple Vibes</h1>
+  <div class="container">
+    <!-- Box 1 -->
+    <div class="box">
+      <h2>Area 1</h2>
+      <p>This area can be used for any content you like. Add text, images, or any other elements to make it unique.</p>
+      <button class="btn">Click Me</button>
+    </div>
+    <!-- Box 2 -->
+    <div class="box">
+      <h2>Area 2</h2>
+      <p>This is another cool section. Feel free to customize it with your own style and content.</p>
+      <button class="btn">Click Me</button>
+    </div>
+    <!-- Box 3 -->
+    <div class="box">
+      <h2>Area 3</h2>
+      <p>Here's the third area where you can display information or interactive elements for your visitors.</p>
+      <button class="btn">Click Me</button>
+    </div>
+  </div>
+</body>
+</html>
