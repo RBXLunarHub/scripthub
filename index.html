@@ -2,172 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lunaree Script Hub</title>
+  <title>Script Hub</title>
   <style>
-    /* Base styles */
     body {
-      margin: 0;
-      padding: 0;
       background-color: #000;
-      font-family: Arial, sans-serif;
       color: #fff;
-      overflow-x: hidden;
-    }
-    
-    h1 {
+      font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 30px;
-      color: #9D00FF;
-      text-shadow: 0 0 10px #9D00FF;
-    }
-    
-    /* Container for the script boxes */
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 20px;
       padding: 40px;
     }
-    
-    /* Each box styling */
-    .box {
-      background-color: rgba(157, 0, 255, 0.1);
-      border: 2px solid #9D00FF;
-      border-radius: 10px;
-      width: 300px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 0 15px #9D00FF;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #9D00FF;
-    }
-    
-    .box h2 {
-      color: #9D00FF;
-      margin-bottom: 10px;
-    }
-    
-    .box p {
-      line-height: 1.5;
-    }
-    
-    /* Button styling */
     .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 25px;
-      font-size: 1em;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #fff;
       background-color: #9D00FF;
       border: none;
-      border-radius: 5px;
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 1em;
       cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
       box-shadow: 0 0 10px #9D00FF;
       transition: background-color 0.3s, box-shadow 0.3s;
     }
-    
     .btn:hover {
       background-color: #bf40ff;
       box-shadow: 0 0 20px #bf40ff;
     }
-    
-    /* Monaco editor container styling */
-    #monaco-container {
-      width: 80%;
-      height: 400px;
-      margin: 40px auto;
-      border: 2px solid #9D00FF;
-      box-shadow: 0 0 15px #9D00FF;
+    pre {
+      background: #111;
+      padding: 10px;
+      border: 1px solid #9D00FF;
+      overflow-x: auto;
+      text-align: left;
+      margin: 20px auto;
+      max-width: 600px;
     }
   </style>
-  
-  <!-- Load RequireJS (needed by Monaco) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
   <script>
-    var editor;
-    // Configure RequireJS to load Monaco from a CDN.
-    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' }});
-    require(['vs/editor/editor.main'], function () {
-      editor = monaco.editor.create(document.getElementById('monaco-container'), {
-        value: '',  // Start with an empty editor.
-        language: 'javascript',
-        theme: 'vs-dark'
-      });
-    });
-
-    // Function to set the Monaco editor content.
-    function setScript(scriptText) {
-      if (editor) {
-        editor.setValue(scriptText);
+    // This function is called when the button is clicked.
+    function sendScript() {
+      // For example, get the script code from a <pre> element.
+      var scriptText = document.getElementById("scriptCode").innerText;
+      // Check that the binding is available.
+      if (window.cefSharpBinding && typeof window.cefSharpBinding.ImportScript === "function") {
+        // Call the C# method via CefSharp binding.
+        window.cefSharpBinding.ImportScript(scriptText);
       } else {
-        console.error("Monaco editor is not initialized yet.");
+        alert("Binding not available.");
       }
     }
-
-    // Once the document loads, attach click events to all script buttons.
-    window.onload = function() {
-      // Get all buttons with the class 'btn'
-      var buttons = document.querySelectorAll('.btn');
-      buttons.forEach(function(button) {
-        button.addEventListener('click', function() {
-          // Retrieve the script stored in the button's data-script attribute.
-          var scriptToImport = button.getAttribute('data-script');
-          if (scriptToImport) {
-            setScript(scriptToImport);
-          } else {
-            console.warn("No script defined for this button.");
-          }
-        });
-      });
-    };
   </script>
 </head>
 <body>
   <h1>Script Hub</h1>
-  <div class="container">
-    <!-- Box 1 -->
-    <div class="box">
-      <h2>Reality Hub | Blue Lock Rivals</h2>
-      <p>
-        A Blue Lock Rivals script that features auto steal, spam steal, and other advanced functionalities.
-        It is the best Blue Lock Rivals script in the game!
-      </p>
-      <button class="btn" data-script="console.log('Reality Hub Script Loaded');">
-        Import Script
-      </button>
-    </div>
-    <!-- Box 2 -->
-    <div class="box">
-      <h2>Washee Washee Admin Command Line</h2>
-      <p>
-        Washee Washee Admin Command Line offers features like aimbot, triggerbot, ESP, and more!
-      </p>
-      <button class="btn" data-script="console.log('Washee Washee Admin Command Line Loaded');">
-        Import Script
-      </button>
-    </div>
-    <!-- Box 3 -->
-    <div class="box">
-      <h2>Washee Washee Admin FE</h2>
-      <p>
-        Washee Washee Admin FE is the second version, including additional features along with all the functionalities of the Admin Command Line.
-      </p>
-      <button class="btn" data-script="console.log('Washee Washee Admin FE Loaded');">
-        Import Script
-      </button>
-    </div>
-  </div>
+  <p>Click the button to import the following script into the Monaco editor.</p>
   
-  <!-- Monaco editor container -->
-  <div id="monaco-container"></div>
+  <!-- The script code to be imported -->
+  <pre id="scriptCode">
+// Example Script
+console.log("Hello from the Script Hub!");
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+  </pre>
+  
+  <!-- Button to send the script -->
+  <button class="btn" onclick="sendScript()">Import Script into Monaco</button>
 </body>
 </html>
