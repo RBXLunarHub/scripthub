@@ -22,7 +22,7 @@
       text-shadow: 0 0 10px #9D00FF;
     }
     
-    /* Container for the three areas */
+    /* Container for the script boxes */
     .container {
       display: flex;
       justify-content: center;
@@ -32,7 +32,7 @@
       padding: 40px;
     }
     
-    /* Each box (area) styling */
+    /* Each box styling */
     .box {
       background-color: rgba(157, 0, 255, 0.1);
       border: 2px solid #9D00FF;
@@ -79,29 +79,95 @@
       background-color: #bf40ff;
       box-shadow: 0 0 20px #bf40ff;
     }
+    
+    /* Monaco editor container styling */
+    #monaco-container {
+      width: 80%;
+      height: 400px;
+      margin: 40px auto;
+      border: 2px solid #9D00FF;
+      box-shadow: 0 0 15px #9D00FF;
+    }
   </style>
+  
+  <!-- Load RequireJS (needed by Monaco) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+  <script>
+    var editor;
+    // Configure RequireJS to load Monaco from a CDN.
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' }});
+    require(['vs/editor/editor.main'], function () {
+      editor = monaco.editor.create(document.getElementById('monaco-container'), {
+        value: '',  // Start with an empty editor.
+        language: 'javascript',
+        theme: 'vs-dark'
+      });
+    });
+
+    // Function to set the Monaco editor content.
+    function setScript(scriptText) {
+      if (editor) {
+        editor.setValue(scriptText);
+      } else {
+        console.error("Monaco editor is not initialized yet.");
+      }
+    }
+
+    // Once the document loads, attach click events to all script buttons.
+    window.onload = function() {
+      // Get all buttons with the class 'btn'
+      var buttons = document.querySelectorAll('.btn');
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          // Retrieve the script stored in the button's data-script attribute.
+          var scriptToImport = button.getAttribute('data-script');
+          if (scriptToImport) {
+            setScript(scriptToImport);
+          } else {
+            console.warn("No script defined for this button.");
+          }
+        });
+      });
+    };
+  </script>
 </head>
 <body>
-  <h1>Neon Purple Vibes</h1>
+  <h1>Script Hub</h1>
   <div class="container">
     <!-- Box 1 -->
     <div class="box">
       <h2>Reality Hub | Blue Lock Rivals</h2>
-      <p>A Blue Lock Rivals script, that has features like auto steal, spam steal, and lots of more advanced stuff. It is the best Blue Lock Rivals script in the game!</p>
-      <button class="btn">Import Script</button>
+      <p>
+        A Blue Lock Rivals script that features auto steal, spam steal, and other advanced functionalities.
+        It is the best Blue Lock Rivals script in the game!
+      </p>
+      <button class="btn" data-script="console.log('Reality Hub Script Loaded');">
+        Import Script
+      </button>
     </div>
     <!-- Box 2 -->
     <div class="box">
       <h2>Washee Washee Admin Command Line</h2>
-      <p>Washee Washee Admind Command Line is a command line that has features like aimbot, triggerbot, esp, and more!</p>
-      <button class="btn">Import Script</button>
+      <p>
+        Washee Washee Admin Command Line offers features like aimbot, triggerbot, ESP, and more!
+      </p>
+      <button class="btn" data-script="console.log('Washee Washee Admin Command Line Loaded');">
+        Import Script
+      </button>
     </div>
     <!-- Box 3 -->
     <div class="box">
       <h2>Washee Washee Admin FE</h2>
-      <p>Washee Washee Admin FE is the second version of Washee Washee Admin Command Line. It has more features, and even includes Washee Washee Admin Command Line</p>
-      <button class="btn">Import Script</button>
+      <p>
+        Washee Washee Admin FE is the second version, including additional features along with all the functionalities of the Admin Command Line.
+      </p>
+      <button class="btn" data-script="console.log('Washee Washee Admin FE Loaded');">
+        Import Script
+      </button>
     </div>
   </div>
+  
+  <!-- Monaco editor container -->
+  <div id="monaco-container"></div>
 </body>
 </html>
