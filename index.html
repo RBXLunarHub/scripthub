@@ -38,25 +38,18 @@
     }
   </style>
   <script>
-    var editor;
-    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' }});
-    require(['vs/editor/editor.main'], function () {
-        editor = monaco.editor.create(document.getElementById('container'), {
-            value: '',  
-            language: 'javascript',
-            theme: 'vs-dark'
-        });
-    });
+    function sendScript() {
+        var scriptText = document.getElementById("scriptCode").innerText;
 
-   
-    function SetText(newText) {
-        if (editor) {
-            editor.setValue(newText);
+       
+        if (window.chrome && window.chrome.webview && window.scriptReceiver) {
+            window.scriptReceiver.ReceiveScript(scriptText);
         } else {
-            console.error("Editor not initialized.");
+            console.error("CefSharp binding not found. Make sure C# has registered scriptReceiver.");
         }
     }
 </script>
+
 </head>
 <body>
   <h1>Script Hub</h1>
