@@ -38,19 +38,25 @@
     }
   </style>
   <script>
-    // This function is called when the button is clicked.
-    function sendScript() {
-      // For example, get the script code from a <pre> element.
-      var scriptText = document.getElementById("scriptCode").innerText;
-      // Check that the binding is available.
-      if (window.cefSharpBinding && typeof window.cefSharpBinding.ImportScript === "function") {
-        // Call the C# method via CefSharp binding.
-        window.cefSharpBinding.ImportScript(scriptText);
-      } else {
-        alert("Binding not available.");
-      }
+    var editor;
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.33.0/min/vs' }});
+    require(['vs/editor/editor.main'], function () {
+        editor = monaco.editor.create(document.getElementById('container'), {
+            value: '',  
+            language: 'javascript',
+            theme: 'vs-dark'
+        });
+    });
+
+   
+    function SetText(newText) {
+        if (editor) {
+            editor.setValue(newText);
+        } else {
+            console.error("Editor not initialized.");
+        }
     }
-  </script>
+</script>
 </head>
 <body>
   <h1>Script Hub</h1>
